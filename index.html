@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Job Finder of Fire Kingdom</title>
+    <style>
+        /* Base Reset & Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: linear-gradient(135deg, #2c0808, #4a0e0e, #1a0000);
+            color: #ffd700;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphic Container */
+        .board-container {
+            background: rgba(139, 0, 0, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5),
+                        0 0 20px rgba(255, 69, 0, 0.2);
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5), 0 0 20px #ff4500;
+        }
+
+        .subheader {
+            font-size: 1rem;
+            color: #ff8c00;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Job Card */
+        .job-card {
+            background: rgba(220, 20, 60, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: left;
+        }
+
+        .job-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.4);
+            border-color: rgba(255, 215, 0, 0.6);
+        }
+
+        /* Unavailable Job Styling */
+        .job-card.unavailable {
+            opacity: 0.5;
+            pointer-events: none;
+            border-color: rgba(128, 128, 128, 0.3);
+            background: rgba(40, 40, 40, 0.2);
+        }
+        .job-card.unavailable .job-title {
+            color: #888;
+            text-shadow: none;
+        }
+        .job-card.unavailable .job-desc {
+            color: #aaa;
+        }
+        .job-card.unavailable .btn {
+            border-color: #555;
+            color: #555;
+            background: transparent;
+        }
+
+        .job-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ff4500;
+            text-shadow: 0 0 5px rgba(255, 69, 0, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-badge {
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .status-badge.open { border: 1px solid #ffd700; color: #ffd700; }
+        .status-badge.closed { border: 1px solid #888; color: #888; }
+
+        .job-desc {
+            color: #ffeb7a;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Button */
+        .btn {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.1);
+            color: #ffd700;
+            border: 1px solid #ffd700;
+            padding: 10px 20px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #ffd700;
+            color: #1a0000;
+            box-shadow: 0 0 15px #ffd700;
+        }
+
+        /* Footer */
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: rgba(255, 215, 0, 0.5);
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
+            background: rgba(10, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Modal / Popup Styling */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            background: rgba(30, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
+            border: 2px solid #ff4500;
+            border-radius: 12px;
+            padding: 30px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 69, 0, 0.6);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal h2 {
+            color: #ff4500;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .modal p {
+            color: #ffd700;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: space-around;
+            gap: 15px;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            color: rgba(255, 215, 0, 0.7);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 215, 0, 0.1);
+            color: #ffd700;
+            box-shadow: none;
+        }
+
+        /* Loading Spinner Styling */
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 69, 0, 0.2);
+            border-top: 3px solid #ffd700;
+            border-radius: 50%;
+            margin: 20px auto;
+            animation: spin 1s linear infinite;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="board-container">
+        <h1>Official Job Finder of the Fire Kingdom</h1>
+        <div class="subheader">Official Deployment & Employment Registry</div>
+        
+        <div class="job-card">
+            <div class="job-title">
+                Safa Collector
+                <span class="status-badge open">Available</span>
+            </div>
+            <p class="job-desc">
+                Responsible for the collection of tax from citizens every Saturday.
+            </p>
+            <button class="btn applyBtn" data-job="Safa Collector">Apply for Job</button>
+        </div>
+
+        <div class="job-card unavailable">
+            <div class="job-title">Bakery Handler
+                <span class="status-badge closed">Not Available</span>
+            </div>
+            <p class="job-desc">
+                Responsible for handling the operations of an assigned bakery.
+            </p>
+            <button class="btn applyBtn" data-job="Magma Forge Smith">Apply for Job</button>
+        </div>
+
+        <div class="job-card unavailable">
+            <div class="job-title">Blacksmith<span class="status-badge closed">Not Available</span>
+            </div>
+            <p class="job-desc">
+                Builds artistic crafts, weaponry, and armory from iron and other metals.
+            </p>
+            <button class="btn applyBtn" data-job="Flame Dragon Wrangler">Apply for Job</button>
+        </div>
+
+        <div class="job-card unavailable">
+            <div class="job-title">Architect
+                <span class="status-badge closed">Not Available</span>
+            </div>
+            <p class="job-desc">
+                Builds infrastructures and buildings for the Fire Kingdom.
+            </p>
+            <button class="btn applyBtn" data-job="Ash-Plains Scout">Apply for Job</button>
+        </div>
+
+        <div class="job-card unavailable">
+            <div class="job-title">
+                Port Watcher
+                <span class="status-badge closed">Not Available</span>
+            </div>
+            <p class="job-desc">
+                Supervises the direct security of the ports from piracy and illegal cargo shipping.
+            </p>
+            <button class="btn applyBtn" data-job="Core Thermal Engineer">Apply for Job</button>
+        </div>
+
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h2>Confirmation</h2>
+            <p>You are about to leave the site to proceed with the job application terminal. Do you wish to continue?</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancelBtn">Abort</button>
+                <button class="btn" id="confirmBtn">Proceed</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="loadingOverlay">
+        <div class="modal" style="border-color: #ffd700;">
+            <h2>Please Await!</h2>
+            <div class="spinner"></div>
+            <p style="margin-bottom: 0; letter-spacing: 1px;">Establishing Secure Connection...Redirecting...</p>
+        </div>
+    </div>
+
+    <footer>
+        © Fire Kingdom Ministry of Labor and Employment. All rights reserved.
+    </footer>
+
+    <script>
+        const modalOverlay = document.getElementById('modalOverlay');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const confirmBtn = document.getElementById('confirmBtn');
+        const applyButtons = document.querySelectorAll('.applyBtn');
+        
+        // Official application link
+        const baseApplicationLink = "https://form.svhrt.com/6a215c3f23230870294bac8f";
+
+        // Attach event listeners to all application buttons dynamically
+        applyButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                // If parent card is unavailable, prevent action
+                if(e.target.closest('.job-card').classList.contains('unavailable')) return;
+                
+                // Formulated via clean URL standard query parameters so it won't break the registration form ID
+                const jobName = button.getAttribute('data-job').toLowerCase().replace(/ /g, "-");
+                confirmBtn.setAttribute('data-target-url', baseApplicationLink + "?job=" + jobName);
+                modalOverlay.classList.add('active');
+            });
+        });
+
+        // Close Modal via Cancel
+        cancelBtn.addEventListener('click', () => {
+            modalOverlay.classList.remove('active');
+        });
+
+        // Redirect via Confirm with a Loading Screen Transition
+        confirmBtn.addEventListener('click', () => {
+            const url = confirmBtn.getAttribute('data-target-url');
+            
+            // Hide the confirmation modal step
+            modalOverlay.classList.remove('active');
+            
+            // Activate the loading screen overlay
+            loadingOverlay.classList.add('active');
+            
+            // Seamless simulated secure terminal transition before opening form securely
+            setTimeout(() => {
+                window.location.href = url;
+            }, 2000); 
+        });
+
+        // Close Modal by clicking outside the box
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
