@@ -13,81 +13,111 @@
         }
 
         body {
-            font-family: 'Courier New', Courier, monospace;
-            background: linear-gradient(135deg, #2c0808, #4a0e0e, #1a0000);
-            color: #ffd700;
+            font-family: 'Times New Roman', Times, serif;
+            background: radial-gradient(circle at center, #3d0c0c 0%, #1f0505 70%, #0d0101 100%);
+            color: #f1c40f;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
+            padding: 30px 15px;
             overflow-x: hidden;
+            line-height: 1.4;
+            font-size: 0.8rem; /* Globally smaller base font size */
         }
 
-        /* Glassmorphic Container */
+        /* Elegant Container Style */
         .board-container {
-            background: rgba(139, 0, 0, 0.15);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 16px;
-            padding: 40px;
+            background: rgba(26, 4, 4, 0.85);
+            border: 2px solid #b8860b;
+            border-radius: 4px;
+            padding: 35px 30px;
             width: 100%;
-            max-width: 650px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5),
-                        0 0 20px rgba(255, 69, 0, 0.2);
+            max-width: 600px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 
+                        inset 0 0 20px rgba(184, 134, 11, 0.15);
             text-align: center;
             margin-top: 20px;
             margin-bottom: 40px;
+            position: relative;
+        }
+
+        /* Decorative framing accent to mimic official registry styling */
+        .board-container::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            right: 6px;
+            bottom: 6px;
+            border: 1px solid rgba(184, 120, 50, 0.3);
+            pointer-events: none;
+            border-radius: 2px;
         }
 
         h1 {
-            font-size: 2rem;
+            font-size: 1.6rem; /* Shrunk font size */
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 5px;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5), 0 0 20px #ff4500;
+            margin-bottom: 8px;
+            color: #d4af37;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
         }
 
         .subheader {
-            font-size: 1rem;
-            color: #ff8c00;
+            font-size: 0.8rem; /* Shrunk font size */
+            color: #e67e22;
             margin-bottom: 30px;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
+            font-style: italic;
+            border-bottom: 1px solid rgba(230, 126, 34, 0.3);
+            padding-bottom: 10px;
+            display: inline-block;
+            width: 80%;
         }
 
-        /* Job Card */
+        /* Job Card Base */
         .job-card {
-            background: rgba(220, 20, 60, 0.1);
-            border: 1px solid rgba(255, 215, 0, 0.2);
-            border-radius: 12px;
-            padding: 25px;
+            border-radius: 2px;
+            padding: 20px;
             margin-top: 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             text-align: left;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
 
-        .job-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 15px rgba(255, 69, 0, 0.4);
-            border-color: rgba(255, 215, 0, 0.6);
+        /* Available Job Card - Red Fiery Glow */
+        .job-card:not(.unavailable) {
+            background: rgba(55, 10, 10, 0.7);
+            border: 1px solid #ff4500;
+            box-shadow: 0 0 12px rgba(255, 69, 0, 0.5), inset 0 0 8px rgba(255, 69, 0, 0.2);
+        }
+
+        .job-card:not(.unavailable):hover {
+            transform: translateY(-2px);
+            background: rgba(75, 12, 12, 0.85);
+            border-color: #ff6347;
+            box-shadow: 0 0 20px rgba(255, 99, 71, 0.8), inset 0 0 12px rgba(255, 99, 71, 0.4);
         }
 
         /* Unavailable Job Styling */
         .job-card.unavailable {
-            opacity: 0.5;
+            opacity: 0.4;
             pointer-events: none;
-            border-color: rgba(128, 128, 128, 0.3);
-            background: rgba(40, 40, 40, 0.2);
+            border: 1px solid rgba(128, 128, 128, 0.3);
+            background: rgba(20, 20, 20, 0.4);
+            box-shadow: none;
         }
         .job-card.unavailable .job-title {
             color: #888;
             text-shadow: none;
         }
         .job-card.unavailable .job-desc {
-            color: #aaa;
+            color: #777;
         }
         .job-card.unavailable .btn {
             border-color: #555;
@@ -96,64 +126,81 @@
         }
 
         .job-title {
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #ff4500;
-            text-shadow: 0 0 5px rgba(255, 69, 0, 0.5);
+            font-size: 1.05rem; /* Shrunk font size */
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #e67e22;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 15px; /* Ensures fixed spacing */
         }
 
+        /* Fixed Status Badge styling preventing border overflow */
         .status-badge {
-            font-size: 0.8rem;
-            padding: 2px 8px;
-            border-radius: 4px;
+            font-size: 0.65rem; /* Shrunk font size */
+            padding: 3px 8px;
+            border-radius: 2px;
             text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            flex-shrink: 0; /* Keeps badge size fixed */
+            white-space: nowrap; /* Prevents ugly text wrapping */
+            display: inline-block;
         }
-        .status-badge.open { border: 1px solid #ffd700; color: #ffd700; }
-        .status-badge.closed { border: 1px solid #888; color: #888; }
+        .status-badge.open { 
+            border: 1px solid #ff4500; 
+            color: #ff4500; 
+            background: rgba(255, 69, 0, 0.1);
+        }
+        .status-badge.closed { 
+            border: 1px solid #666; 
+            color: #888; 
+            background: rgba(0, 0, 0, 0.2);
+        }
 
         .job-desc {
-            color: #ffeb7a;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
+            color: #f39c12;
+            font-size: 0.85rem; /* Shrunk font size */
+            line-height: 1.5;
+            margin-bottom: 18px;
+            font-style: italic;
         }
 
-        /* Button */
+        /* Button styling */
         .btn {
             display: inline-block;
-            background: rgba(255, 215, 0, 0.1);
-            color: #ffd700;
-            border: 1px solid #ffd700;
-            padding: 10px 20px;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.9rem;
-            font-weight: bold;
+            background: transparent;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+            padding: 8px 16px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 0.75rem; /* Shrunk font size */
+            font-weight: 700;
             cursor: pointer;
-            border-radius: 6px;
+            border-radius: 2px;
             text-transform: uppercase;
-            transition: all 0.3s ease;
+            letter-spacing: 1.5px;
+            transition: all 0.2s ease-in-out;
         }
 
         .btn:hover {
-            background: #ffd700;
+            background: #d4af37;
             color: #1a0000;
-            box-shadow: 0 0 15px #ffd700;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
         }
 
         /* Footer */
         footer {
             width: 100%;
             text-align: center;
-            padding: 20px;
-            font-size: 0.8rem;
-            color: rgba(255, 215, 0, 0.5);
-            border-top: 1px solid rgba(255, 215, 0, 0.1);
-            background: rgba(10, 0, 0, 0.4);
-            backdrop-filter: blur(5px);
+            padding: 15px;
+            font-size: 0.7rem; /* Shrunk font size */
+            color: rgba(212, 175, 55, 0.5);
+            border-top: 1px solid rgba(184, 134, 11, 0.2);
+            background: #0a0101;
+            letter-spacing: 1px;
         }
 
         /* Modal / Popup Styling */
@@ -163,8 +210,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.85);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -180,17 +226,28 @@
         }
 
         .modal {
-            background: rgba(30, 0, 0, 0.85);
-            backdrop-filter: blur(15px);
-            border: 2px solid #ff4500;
-            border-radius: 12px;
+            background: #1f0505;
+            border: 2px solid #e67e22;
+            border-radius: 2px;
             padding: 30px;
             width: 90%;
-            max-width: 450px;
+            max-width: 400px;
             text-align: center;
-            box-shadow: 0 0 30px rgba(255, 69, 0, 0.6);
-            transform: scale(0.8);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+            transform: scale(0.95);
             transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .modal::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            right: 6px;
+            bottom: 6px;
+            border: 1px solid rgba(230, 126, 34, 0.2);
+            pointer-events: none;
         }
 
         .modal-overlay.active .modal {
@@ -198,46 +255,48 @@
         }
 
         .modal h2 {
-            color: #ff4500;
+            color: #e67e22;
             margin-bottom: 15px;
-            font-size: 1.3rem;
+            font-size: 1.2rem; /* Shrunk font size */
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
         }
 
         .modal p {
-            color: #ffd700;
-            font-size: 0.9rem;
-            margin-bottom: 25px;
+            color: #d4af37;
+            font-size: 0.85rem; /* Shrunk font size */
+            margin-bottom: 22px;
             line-height: 1.4;
         }
 
         .modal-actions {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             gap: 15px;
         }
 
         .btn-secondary {
             background: transparent;
-            border: 1px solid rgba(255, 215, 0, 0.5);
-            color: rgba(255, 215, 0, 0.7);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            color: rgba(212, 175, 55, 0.7);
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 215, 0, 0.1);
-            color: #ffd700;
+            background: rgba(212, 175, 55, 0.05);
+            color: #d4af37;
+            border-color: #d4af37;
             box-shadow: none;
         }
 
         /* Loading Spinner Styling */
         .spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(255, 69, 0, 0.2);
-            border-top: 3px solid #ffd700;
+            width: 35px;
+            height: 35px;
+            border: 2px solid rgba(212, 175, 55, 0.1);
+            border-top: 2px solid #d4af37;
             border-radius: 50%;
             margin: 20px auto;
             animation: spin 1s linear infinite;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
         }
 
         @keyframes spin {
@@ -317,13 +376,22 @@
     </div>
 
     <div class="modal-overlay" id="loadingOverlay">
-        <div class="modal" style="border-color: #ffd700;">
+        <div class="modal" style="border-color: #d4af37;">
             <h2>Please Await!</h2>
             <div class="spinner"></div>
             <p style="margin-bottom: 0; letter-spacing: 1px;">Establishing Secure Connection...Redirecting...</p>
         </div>
     </div>
-
+    
+    <div class = "board-container">
+        <h2>DEVELOPER'S NOTE</h2><br>
+        <p>Hey everyone! Just a quick update on where the site stands right now. We're keeping things pretty streamlined for this initial launch, so the <b>Safa Collector</b> gig is currently the only active portal open for applications. When you click it, you'll experience our new smooth redirect flow—a quick confirmation pop-up followed by a secure loading screen to make sure everything hands off safely to the external application form. The other jobs like <b>Blacksmith, Baker, and Port Watcher</b> are just visual placeholders for the time being, so don't panic when they show up as "Not Available."</p><br>
+<p>Now for the fun stuff! We're already working on the next patch, and here is a sneak peek at what's cooking in the forge. We'll be unlocking the Blacksmith and Port Watcher application pipelines next, followed by a live vacancy dashboard so you can see job openings update in real-time without refreshing. We are also prototyping a fun, fantasy-themed "Kingdom Rank" profile widget for users to track their application status, so stay tuned. Drop any bugs you find in the usual channel, and happy hunting out there!</p>
+        
+    </div>
+    <footer>
+        <i>it will be automatically updated once new jobs are opened to the public.</i>
+    </footer>
     <footer>
         © Fire Kingdom Ministry of Labor and Employment. All rights reserved.
     </footer>
