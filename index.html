@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Times New Roman', Times, serif;
-            background: radial-gradient(circle at center, #3d0c0c 0%, #1f0505 70%, #0d0101 100%);
+            background: radial-gradient(circle at center, #4d1212 0%, #240707 50%, #0d0101 100%);
             color: #f1c40f;
             min-height: 100vh;
             display: flex;
@@ -23,24 +23,49 @@
             align-items: center;
             padding: 30px 15px;
             overflow-x: hidden;
-            line-height: 1.4;
-            font-size: 0.8rem; /* Globally smaller base font size */
+            line-height: 1.5;
+            font-size: 0.85rem; /* Globally optimized baseline */
+        }
+
+        /* Live Time Clock Widget Styling */
+        .clock-widget {
+            background: rgba(40, 10, 10, 0.8);
+            border: 1px solid #d4af37;
+            padding: 10px 20px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6), inset 0 0 10px rgba(212, 175, 55, 0.2);
+            color: #e67e22;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .clock-widget span {
+            color: #f1c40f;
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+            text-shadow: 0 0 5px rgba(241, 196, 15, 0.6);
         }
 
         /* Elegant Container Style */
         .board-container {
-            background: rgba(26, 4, 4, 0.85);
+            background: linear-gradient(135deg, rgba(30, 5, 5, 0.9) 0%, rgba(15, 2, 2, 0.95) 100%);
             border: 2px solid #b8860b;
-            border-radius: 4px;
-            padding: 35px 30px;
+            border-radius: 6px;
+            padding: 40px 30px;
             width: 100%;
             max-width: 600px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 
-                        inset 0 0 20px rgba(184, 134, 11, 0.15);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9), 
+                        inset 0 0 30px rgba(184, 134, 11, 0.2);
             text-align: center;
             margin-top: 20px;
             margin-bottom: 40px;
             position: relative;
+            backdrop-filter: blur(4px);
         }
 
         /* Decorative framing accent to mimic official registry styling */
@@ -51,120 +76,138 @@
             left: 6px;
             right: 6px;
             bottom: 6px;
-            border: 1px solid rgba(184, 120, 50, 0.3);
+            border: 1px solid rgba(184, 120, 50, 0.4);
             pointer-events: none;
-            border-radius: 2px;
+            border-radius: 4px;
         }
 
         h1 {
-            font-size: 1.6rem; /* Shrunk font size */
+            font-size: 1.75rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 2.5px;
             margin-bottom: 8px;
             color: #d4af37;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(212, 175, 55, 0.3);
         }
 
         .subheader {
-            font-size: 0.8rem; /* Shrunk font size */
+            font-size: 0.85rem;
             color: #e67e22;
             margin-bottom: 30px;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             font-style: italic;
-            border-bottom: 1px solid rgba(230, 126, 34, 0.3);
-            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(230, 126, 34, 0.4);
+            padding-bottom: 12px;
             display: inline-block;
-            width: 80%;
+            width: 85%;
         }
 
         /* Job Card Base */
         .job-card {
-            border-radius: 2px;
-            padding: 20px;
-            margin-top: 20px;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-radius: 4px;
+            padding: 22px;
+            margin-top: 22px;
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
             text-align: left;
             position: relative;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
         }
 
         /* Available Job Card - Red Fiery Glow */
-        .job-card:not(.unavailable) {
-            background: rgba(55, 10, 10, 0.7);
+        .job-card:not(.unavailable):not(.occupied) {
+            background: linear-gradient(to right, rgba(65, 12, 12, 0.85), rgba(45, 8, 8, 0.75));
             border: 1px solid #ff4500;
-            box-shadow: 0 0 12px rgba(255, 69, 0, 0.5), inset 0 0 8px rgba(255, 69, 0, 0.2);
+            box-shadow: 0 0 14px rgba(255, 69, 0, 0.35), inset 0 0 10px rgba(255, 69, 0, 0.15);
         }
 
-        .job-card:not(.unavailable):hover {
-            transform: translateY(-2px);
-            background: rgba(75, 12, 12, 0.85);
+        .job-card:not(.unavailable):not(.occupied):hover {
+            transform: translateY(-3px) scale(1.01);
+            background: linear-gradient(to right, rgba(85, 15, 15, 0.9), rgba(55, 10, 10, 0.8));
             border-color: #ff6347;
-            box-shadow: 0 0 20px rgba(255, 99, 71, 0.8), inset 0 0 12px rgba(255, 99, 71, 0.4);
+            box-shadow: 0 0 25px rgba(255, 99, 71, 0.65), inset 0 0 15px rgba(255, 99, 71, 0.3);
+        }
+
+        /* Occupied Job Card - Golden Yellow Muted State */
+        .job-card.occupied {
+            background: linear-gradient(to right, rgba(45, 35, 10, 0.7), rgba(30, 24, 6, 0.6));
+            border: 1px solid #f1c40f;
+            box-shadow: 0 0 12px rgba(241, 196, 15, 0.2), inset 0 0 8px rgba(241, 196, 15, 0.1);
+        }
+        
+        .job-card.occupied .job-title {
+            color: #f1c40f;
         }
 
         /* Unavailable Job Styling */
         .job-card.unavailable {
-            opacity: 0.4;
+            opacity: 0.45;
             pointer-events: none;
-            border: 1px solid rgba(128, 128, 128, 0.3);
-            background: rgba(20, 20, 20, 0.4);
+            border: 1px solid rgba(128, 128, 128, 0.4);
+            background: rgba(25, 25, 25, 0.5);
             box-shadow: none;
         }
         .job-card.unavailable .job-title {
-            color: #888;
+            color: #999;
             text-shadow: none;
         }
         .job-card.unavailable .job-desc {
-            color: #777;
+            color: #888;
         }
         .job-card.unavailable .btn {
-            border-color: #555;
-            color: #555;
+            border-color: #666;
+            color: #666;
             background: transparent;
         }
 
         .job-title {
-            font-size: 1.05rem; /* Shrunk font size */
+            font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 12px;
             color: #e67e22;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 15px; /* Ensures fixed spacing */
+            gap: 15px;
         }
 
         /* Fixed Status Badge styling preventing border overflow */
         .status-badge {
-            font-size: 0.65rem; /* Shrunk font size */
-            padding: 3px 8px;
-            border-radius: 2px;
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 3px;
             text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 1px;
-            flex-shrink: 0; /* Keeps badge size fixed */
-            white-space: nowrap; /* Prevents ugly text wrapping */
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            flex-shrink: 0;
+            white-space: nowrap;
             display: inline-block;
         }
         .status-badge.open { 
             border: 1px solid #ff4500; 
             color: #ff4500; 
-            background: rgba(255, 69, 0, 0.1);
+            background: rgba(255, 69, 0, 0.15);
+            text-shadow: 0 0 5px rgba(255, 69, 0, 0.5);
+        }
+        .status-badge.occupied {
+            border: 1px solid #f1c40f;
+            color: #f1c40f;
+            background: rgba(241, 196, 15, 0.15);
+            text-shadow: 0 0 5px rgba(241, 196, 15, 0.5);
         }
         .status-badge.closed { 
-            border: 1px solid #666; 
-            color: #888; 
-            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid #777; 
+            color: #aaa; 
+            background: rgba(0, 0, 0, 0.3);
         }
 
         .job-desc {
             color: #f39c12;
-            font-size: 0.85rem; /* Shrunk font size */
-            line-height: 1.5;
-            margin-bottom: 18px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
             font-style: italic;
         }
 
@@ -174,21 +217,46 @@
             background: transparent;
             color: #d4af37;
             border: 1px solid #d4af37;
-            padding: 8px 16px;
+            padding: 9px 18px;
             font-family: 'Times New Roman', Times, serif;
-            font-size: 0.75rem; /* Shrunk font size */
+            font-size: 0.8rem;
             font-weight: 700;
             cursor: pointer;
-            border-radius: 2px;
+            border-radius: 3px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            transition: all 0.2s ease-in-out;
+            transition: all 0.25s ease-in-out;
         }
 
-        .btn:hover {
+        .btn:hover:not(:disabled) {
             background: #d4af37;
             color: #1a0000;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 14px rgba(212, 175, 55, 0.5);
+        }
+
+        /* Occupied Locked Button Styling */
+        .btn:disabled {
+            border-color: rgba(241, 196, 15, 0.3);
+            color: rgba(241, 196, 15, 0.3);
+            background: rgba(0, 0, 0, 0.2);
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* Developer Note styling extensions */
+        .board-container h2 {
+            color: #d4af37;
+            font-size: 1.25rem;
+            letter-spacing: 2px;
+            border-bottom: 1px dashed rgba(212, 175, 55, 0.4);
+            padding-bottom: 6px;
+            margin-bottom: 15px;
+        }
+
+        .board-container p {
+            text-align: justify;
+            font-size: 0.85rem;
+            color: #f39c12;
         }
 
         /* Footer */
@@ -196,11 +264,11 @@
             width: 100%;
             text-align: center;
             padding: 15px;
-            font-size: 0.7rem; /* Shrunk font size */
-            color: rgba(212, 175, 55, 0.5);
-            border-top: 1px solid rgba(184, 134, 11, 0.2);
+            font-size: 0.75rem;
+            color: rgba(212, 175, 55, 0.6);
+            border-top: 1px solid rgba(184, 134, 11, 0.3);
             background: #0a0101;
-            letter-spacing: 1px;
+            letter-spacing: 1.2px;
         }
 
         /* Modal / Popup Styling */
@@ -210,7 +278,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.9);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -218,6 +286,7 @@
             pointer-events: none;
             transition: opacity 0.3s ease;
             z-index: 1000;
+            backdrop-filter: blur(3px);
         }
 
         .modal-overlay.active {
@@ -228,14 +297,14 @@
         .modal {
             background: #1f0505;
             border: 2px solid #e67e22;
-            border-radius: 2px;
-            padding: 30px;
+            border-radius: 4px;
+            padding: 35px;
             width: 90%;
             max-width: 400px;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
-            transform: scale(0.95);
-            transition: transform 0.3s ease;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+            transform: scale(0.92);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
         }
 
@@ -246,7 +315,7 @@
             left: 6px;
             right: 6px;
             bottom: 6px;
-            border: 1px solid rgba(230, 126, 34, 0.2);
+            border: 1px solid rgba(230, 126, 34, 0.3);
             pointer-events: none;
         }
 
@@ -257,16 +326,19 @@
         .modal h2 {
             color: #e67e22;
             margin-bottom: 15px;
-            font-size: 1.2rem; /* Shrunk font size */
+            font-size: 1.3rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
+            border: none;
+            padding: 0;
         }
 
         .modal p {
             color: #d4af37;
-            font-size: 0.85rem; /* Shrunk font size */
-            margin-bottom: 22px;
-            line-height: 1.4;
+            font-size: 0.9rem;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            text-align: center;
         }
 
         .modal-actions {
@@ -277,12 +349,12 @@
 
         .btn-secondary {
             background: transparent;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            color: rgba(212, 175, 55, 0.7);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            color: rgba(212, 175, 55, 0.8);
         }
 
         .btn-secondary:hover {
-            background: rgba(212, 175, 55, 0.05);
+            background: rgba(212, 175, 55, 0.08);
             color: #d4af37;
             border-color: #d4af37;
             box-shadow: none;
@@ -290,13 +362,13 @@
 
         /* Loading Spinner Styling */
         .spinner {
-            width: 35px;
-            height: 35px;
-            border: 2px solid rgba(212, 175, 55, 0.1);
-            border-top: 2px solid #d4af37;
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(212, 175, 55, 0.1);
+            border-top: 3px solid #d4af37;
             border-radius: 50%;
-            margin: 20px auto;
-            animation: spin 1s linear infinite;
+            margin: 25px auto;
+            animation: spin 0.8s linear infinite;
         }
 
         @keyframes spin {
@@ -307,19 +379,24 @@
 </head>
 <body>
 
+    <div class="clock-widget">
+        Fire Kingdom Standard Time (PHT)
+        <span id="phtClock">00:00:00 AM</span>
+    </div>
+
     <div class="board-container">
         <h1>Official Job Finder of the Fire Kingdom</h1>
         <div class="subheader">Official Deployment & Employment Registry</div>
         
-        <div class="job-card">
+        <div class="job-card occupied">
             <div class="job-title">
                 Safa Collector
-                <span class="status-badge open">Available</span>
+                <span class="status-badge open">Occupied</span>
             </div>
             <p class="job-desc">
                 Responsible for the collection of tax from citizens every Saturday.
             </p>
-            <button class="btn applyBtn" data-job="Safa Collector">Apply for Job</button>
+            <button class="btn applyBtn" data-job="Safa Collector">Locked</button>
         </div>
 
         <div class="job-card unavailable">
@@ -329,7 +406,7 @@
             <p class="job-desc">
                 Responsible for handling the operations of an assigned bakery.
             </p>
-            <button class="btn applyBtn" data-job="Magma Forge Smith">Apply for Job</button>
+            <button class="btn applyBtn" data-job="Magma Forge Smith" disabled>Apply for Job</button>
         </div>
 
         <div class="job-card unavailable">
@@ -383,12 +460,12 @@
         </div>
     </div>
     
-    <div class = "board-container">
+    <div class="board-container">
         <h2>DEVELOPER'S NOTE</h2><br>
         <p>Hey everyone! Just a quick update on where the site stands right now. We're keeping things pretty streamlined for this initial launch, so the <b>Safa Collector</b> gig is currently the only active portal open for applications. When you click it, you'll experience our new smooth redirect flow—a quick confirmation pop-up followed by a secure loading screen to make sure everything hands off safely to the external application form. The other jobs like <b>Blacksmith, Baker, and Port Watcher</b> are just visual placeholders for the time being, so don't panic when they show up as "Not Available."</p><br>
-<p>Now for the fun stuff! We're already working on the next patch, and here is a sneak peek at what's cooking in the forge. We'll be unlocking the Blacksmith and Port Watcher application pipelines next, followed by a live vacancy dashboard so you can see job openings update in real-time without refreshing. We are also prototyping a fun, fantasy-themed "Kingdom Rank" profile widget for users to track their application status, so stay tuned. Drop any bugs you find in the usual channel, and happy hunting out there!</p>
-        
+        <p>Now for the fun stuff! We're already working on the next patch, and here is a sneak peek at what's cooking in the forge. We'll be unlocking the Blacksmith and Port Watcher application pipelines next, followed by a live vacancy dashboard so you can see job openings update in real-time without refreshing. We are also prototyping a fun, fantasy-themed "Kingdom Rank" profile widget for users to track their application status, so stay tuned. Drop any bugs you find in the usual channel, and happy hunting out there!</p>
     </div>
+
     <footer>
         <i>it will be automatically updated once new jobs are opened to the public.</i>
     </footer>
@@ -402,15 +479,32 @@
         const cancelBtn = document.getElementById('cancelBtn');
         const confirmBtn = document.getElementById('confirmBtn');
         const applyButtons = document.querySelectorAll('.applyBtn');
+        const clockElement = document.getElementById('phtClock');
         
+        // Live Philippine Time (PHT) Functionality
+        function updatePHTClock() {
+            const options = {
+                timeZone: 'Asia/Manila',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+            };
+            const formatter = new Intl.DateTimeFormat('en-US', options);
+            clockElement.textContent = formatter.format(new Date());
+        }
+        setInterval(updatePHTClock, 1000);
+        updatePHTClock(); // Initial pull
+
         // Official application link
         const baseApplicationLink = "https://form.svhrt.com/6a215c3f23230870294bac8f";
 
         // Attach event listeners to all application buttons dynamically
         applyButtons.forEach(button => {
             button.addEventListener('click', (e) => {
-                // If parent card is unavailable, prevent action
-                if(e.target.closest('.job-card').classList.contains('unavailable')) return;
+                const card = e.target.closest('.job-card');
+                // If parent card is unavailable or occupied, prevent action completely
+                if(card.classList.contains('unavailable') || card.classList.contains('occupied') || button.hasAttribute('disabled')) return;
                 
                 // Formulated via clean URL standard query parameters so it won't break the registration form ID
                 const jobName = button.getAttribute('data-job').toLowerCase().replace(/ /g, "-");
